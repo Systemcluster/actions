@@ -1,0 +1,31 @@
+# Example Action for Release Crates Action
+
+name: Release Crates
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  publish:
+
+    name: Release Crates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Download serde
+        run: git clone --depth 1 https://github.com/serde-rs/serde.git serde
+
+      - name: Publish serde
+        uses: Systemcluster/actions@release-crates-v0
+        with:
+          crates-token: skip
+          directory: serde
+          dry-run: true
+          only-newest: true
