@@ -1,0 +1,41 @@
+name: Release Crate
+description: Publish a Rust package or workspace on crates.io.
+author: Systemcluster
+
+runs:
+  using: node20
+  main: dist/action.js
+
+branding:
+  color: green
+  icon: package
+
+inputs:
+  github-token:
+    required: false
+    description: GitHub Access Token. Defaults to `{github.token}`.
+    default: "${{ github.token }}"
+  crates-token:
+    required: true
+    description: Crates.io Access Token.
+  tag-crate:
+    required: false
+    description: Name of the crate for which to create a version tag in the GitHub repository.
+  directory:
+    required: false
+    description: Directory containing the cargo package or workspace.
+  dry-run:
+    required: false
+    description: Whether to skip publishing changes.
+  arguments:
+    required: false
+    description: Extra arguments for cargo publish.
+  only-newest:
+    required: false
+    description: Whether to only publish crates when no newer version exists.
+
+outputs:
+  published:
+    description: JSON array containing the names of crates that were published.
+  tag:
+    description: Tag created in the GitHub repository.

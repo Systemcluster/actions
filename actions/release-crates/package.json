@@ -1,0 +1,51 @@
+{
+  "name": "release-crates",
+  "displayName": "Release Crates Action",
+  "version": "0.1.0",
+  "description": "Publish a Rust package or workspace on crates.io.",
+  "author": {
+    "name": "Christian Sdunek",
+    "email": "me@systemcluster.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:Systemcluster/actions",
+    "directory": "actions/release-crates"
+  },
+  "license": "BSD-2-Clause",
+  "private": true,
+  "keywords": [
+    "github",
+    "actions"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "check": "tsc --noEmit --emitDeclarationOnly false && eslint \"**/*.ts*\"",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.8",
+    "@types/node": "^20.9.1",
+    "@types/semver": "^7.5.5",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.54.0",
+    "eslint-config-workspace": "workspace:*",
+    "jest": "^29.7.0",
+    "jest-config-workspace": "workspace:*",
+    "jest-mock": "^29.7.0",
+    "rollup": "^4.4.1",
+    "rollup-config-workspace": "workspace:*",
+    "typescript": "^5.2.2",
+    "typescript-config-workspace": "workspace:*"
+  },
+  "dependencies": {
+    "actions-utils": "workspace:*",
+    "node-fetch": "^3.3.2",
+    "semver": "^7.5.4",
+    "slash": "^5.1.0"
+  }
+}
