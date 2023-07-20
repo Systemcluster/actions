@@ -1,0 +1,33 @@
+# Example Action for Setup Node Action
+
+name: Setup Node
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  publish:
+
+    name: Setup Node
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: Systemcluster/actions@setup-node-v0
+        id: setup-node
+        with:
+          cache: true
+
+      - name: Check Node.js version
+        run: node --version
+
+      - name: Install dependencies
+        run: |
+          ${{ steps.setup-node.outputs.package-manager }} install

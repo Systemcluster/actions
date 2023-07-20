@@ -1,0 +1,43 @@
+name: Setup Node
+description: Setup a Node.js environment with the right package manager and package caching.
+author: Systemcluster
+
+runs:
+  using: node20
+  main: dist/action.js
+  post: dist/action-post.js
+
+branding:
+  color: white
+  icon: box
+
+inputs:
+  node-version:
+    required: false
+    description: Version of Node.js to install. Can be a specific version like `18.x`, `16.20.x` or a version tag like `lts` or `latest`. Read from the `NODE_VERSION` environment variable, `.nvmrc` and `.node-version` files, the `engines.node` field in `package.json`, and falling back to `lts`.
+  package-manager:
+    required: false
+    description: Package manager to install. Can be a name like `pnpm` or a name and version like `npm@9`. Read from the `packageManager` field in `package.json` if present, detected from a lockfile if available, and falling back to `npm`.
+  directory:
+    required: false
+    description: Directory containing the Node project. Used for detecting node version and package manager configuration. Defaults to `.`.
+  install:
+    required: false
+    description: Whether to install Node project dependencies.
+  cache:
+    required: false
+    description: Whether to cache and restore the Node package manager store.
+  cache-key-job:
+    required: false
+    description: Whether to consider the Job ID when generating the cache key. Set to `true` to prevent sharing the cache across jobs. Requires `cache` to be `true`.
+  cache-key-env:
+    required: false
+    description: List of environment variables to consider when generating the cache key. Requires `cache` to be `true`.
+
+outputs:
+  node-version:
+    description: Version of Node.js that was installed.
+  package-manager:
+    description: Name of the package manager that was installed.
+  cache-hit:
+    description: Whether the Node package manager store cache was restored.
