@@ -1,0 +1,33 @@
+# Example Action for Release GitHub Action
+
+name: Release GitHub
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+
+  publish:
+
+    name: Release GitHub
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Create Release
+        uses: Systemcluster/actions@release-github-v0
+        with:
+          name: Example Release
+          tag: snapshot
+          compare-tag: true
+          compare-latest: true
+          compare-first: true
+          files: |
+            README.md
+            LICENSE
