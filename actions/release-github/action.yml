@@ -1,0 +1,72 @@
+name: Release GitHub Release
+description: Create or update a GitHub Release.
+author: Systemcluster
+
+runs:
+  using: node20
+  main: dist/action.js
+
+branding:
+  color: green
+  icon: package
+
+inputs:
+  github-token:
+    required: false
+    description: GitHub Access Token. Defaults to `{github.token}`.
+    default: "${{ github.token }}"
+  repository:
+    required: false
+    description: Repository to push the release to, in the format `owner/repo`. Defaults to `{github.repository}`.
+    default: "${{ github.repository }}"
+  name:
+    required: false
+    description: Name of the release. Defaults to tag name.
+  tag:
+    required: false
+    description: Tag of the release. Defaults to `{github.ref}`.
+    default: "${{ github.ref }}"
+  prerelease:
+    required: false
+    description: Whether the release will be marked as a prerelease.
+  draft:
+    required: false
+    description: Whether the release will be marked as a draft.
+  files:
+    required: true
+    description: List of files or glob patterns to include in the release.
+  message:
+    required: false
+    description: Message to prepend to the release notes.
+  message-file:
+    required: false
+    description: Path to a file containing a message to prepend to the release notes.
+  message-pulls:
+    required: false
+    description: "Message to generate for pull requests included in the release. Supports placeholders for `{title}`, `{pull}`, `{user}` and `{author}`."
+  message-commits:
+    required: false
+    description: "Message to generate for commits included in the release. Supports placeholders for `{message}`, `{hash}`, `{shorthash}`, `{user}`, `{author}`, `{body}` and `{pull}`."
+    default: "- {shorthash}: {message} ({pull})\n{body}"
+  compare-tag:
+    required: false
+    description: Whether the release will be compared with the latest release of the same tag.
+    default: "true"
+  compare-latest:
+    required: false
+    description: Whether the release will be compared with the latest release if not compared with the latest release of the same tag or no release with the same tag exists.
+    default: "true"
+  compare-first:
+    required: false
+    description: Whether the release will be compared with the first commit in the branch if not compared with the latest release or no release exists.
+  use-github-release-notes:
+    required: false
+    description: Whether to use GitHub's release note generator instead of the default generator.
+
+outputs:
+  id:
+    description: ID of the release.
+  release-url:
+    description: URL of the release.
+  upload-url:
+    description: URL for uploading assets to the release.
