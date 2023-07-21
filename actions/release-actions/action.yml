@@ -1,0 +1,21 @@
+name: Release Actions
+description: Release multiple actions into branches.
+author: Systemcluster
+
+runs:
+  using: node20
+  main: dist/action.js
+
+branding:
+  color: green
+  icon: package
+
+inputs:
+  github-token:
+    required: false
+    description: GitHub Access Token. Defaults to `{github.token}`.
+    default: "${{ github.token }}"
+  repository:
+    required: false
+    description: Repository to push the branches to. Defaults to `{github.repository}`.
+    default: "${{ github.repository }}"

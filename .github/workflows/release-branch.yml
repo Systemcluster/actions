@@ -1,0 +1,30 @@
+# Example Action for Release Branch Action
+
+name: Release Branch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+
+  publish:
+
+    name: Release Branch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Create Release
+        uses: Systemcluster/actions@release-branch-v0
+        with:
+          branch: release-branch-example
+          squash: true
+          directory: .
+          exclude: |
+            **/dist/*
+            **/node_modules/*
