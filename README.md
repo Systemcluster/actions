@@ -13,3 +13,4 @@
 ### Setup Actions
 
 - [**Setup Node**](actions/setup-node) - Setup a Node.js environment with the right package manager and package caching.
+- [**Setup Rust**](actions/setup-rust) - Setup a Rust environment with the right toolchain and build caching.
