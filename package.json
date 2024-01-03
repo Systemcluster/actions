@@ -23,11 +23,11 @@
     "clean": "rimraf -g ./actions/*/dist ./utils/dist ./**/tsconfig.tsbuildinfo"
   },
   "devDependencies": {
-    "eslint": "^8.54.0",
+    "eslint": "^8.56.0",
     "eslint-config-workspace": "workspace:*",
     "rimraf": "^5.0.5",
-    "turbo": "^1.10.16",
-    "typescript": "^5.2.2",
+    "turbo": "^1.11.2",
+    "typescript": "^5.3.3",
     "typescript-config-workspace": "workspace:*"
   },
   "resolutions": {

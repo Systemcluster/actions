@@ -28,25 +28,25 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.8",
+    "@types/jest": "^29.5.11",
     "@types/mime": "^3.0.4",
-    "@types/node": "^20.9.1",
+    "@types/node": "^20.10.6",
     "dotenv": "^16.3.1",
-    "eslint": "^8.54.0",
+    "eslint": "^8.56.0",
     "eslint-config-workspace": "workspace:*",
     "jest": "^29.7.0",
     "jest-config-workspace": "workspace:*",
     "jest-mock": "^29.7.0",
-    "rollup": "^4.4.1",
+    "rollup": "^4.9.2",
     "rollup-config-workspace": "workspace:*",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "typescript-config-workspace": "workspace:*"
   },
   "dependencies": {
-    "@octokit/types": "^12.3.0",
+    "@octokit/types": "^12.4.0",
     "actions-utils": "workspace:*",
     "glob": "^10.3.10",
-    "mime": "^3.0.0",
+    "mime": "^4.0.1",
     "node-fetch": "^3.3.2"
   }
 }

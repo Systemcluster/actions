@@ -44,10 +44,10 @@
     "check": "tsc --noEmit --emitDeclarationOnly false && eslint \"**/*.ts*\""
   },
   "devDependencies": {
-    "@types/node": "^20.9.1",
-    "eslint": "^8.54.0",
+    "@types/node": "^20.10.6",
+    "eslint": "^8.56.0",
     "eslint-config-workspace": "workspace:*",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "typescript-config-workspace": "workspace:*"
   },
   "dependencies": {
@@ -55,8 +55,8 @@
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
     "@actions/tool-cache": "^2.0.1",
-    "@octokit/core": "^5.0.1",
+    "@octokit/core": "^5.0.2",
     "@octokit/plugin-retry": "^6.0.1",
-    "@octokit/plugin-throttling": "^8.1.2"
+    "@octokit/plugin-throttling": "^8.1.3"
   }
 }
