@@ -12,7 +12,7 @@ import { glob } from 'glob'
 import mime from 'mime'
 import fetch from 'node-fetch'
 
-export type Octokit = InstanceType<typeof GitHub>
+export type Octokit = InstanceType<GitHub>
 
 export interface Inputs {
   githubToken: string
