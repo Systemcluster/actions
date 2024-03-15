@@ -145,7 +145,7 @@ export const getToolchain = async (inputs: Inputs): Promise<Toolchain> => {
 
 export const installToolchain = async (toolchain: Toolchain): Promise<void> => {
   startGroup(`Installing toolchain "${toolchain.channel}"`)
-  const args = ['toolchain', 'install', toolchain.channel, '--profile', toolchain.profile]
+  const args = ['toolchain', 'install', toolchain.channel, '--profile', toolchain.profile, '--no-self-update']
   for (const component of toolchain.components) {
     args.push('--component', component)
   }
