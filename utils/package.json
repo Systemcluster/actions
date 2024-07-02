@@ -19,6 +19,9 @@
     "actions"
   ],
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "sideEffects": false,
   "exports": {
     "./cache": {
@@ -44,21 +47,21 @@
     "check": "tsc --noEmit --emitDeclarationOnly false && eslint \"**/*.ts*\""
   },
   "devDependencies": {
-    "@types/node": "^20.11.24",
+    "@types/node": "^20.14.14",
     "eslint": "^8.57.0",
     "eslint-config-workspace": "workspace:*",
-    "typescript": "^5.3.3",
+    "typescript": "^5.5.4",
     "typescript-config-workspace": "workspace:*"
   },
   "dependencies": {
-    "@actions/cache": "3.2.4",
+    "@actions/cache": "^3.2.4",
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
     "@actions/tool-cache": "^2.0.1",
-    "@octokit/core": "^5.1.0",
-    "@octokit/plugin-paginate-rest": "^9.2.1",
+    "@octokit/core": "^5.2.0",
+    "@octokit/plugin-paginate-rest": "^11.3.3",
     "@octokit/plugin-rest-endpoint-methods": "^10.4.1",
-    "@octokit/plugin-retry": "^6.0.1",
-    "@octokit/plugin-throttling": "^8.2.0"
+    "@octokit/plugin-retry": "^7.1.1",
+    "@octokit/plugin-throttling": "^9.3.1"
   }
 }

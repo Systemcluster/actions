@@ -19,6 +19,9 @@
     "actions"
   ],
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "sideEffects": false,
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -29,24 +32,23 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "@types/mime": "^3.0.4",
-    "@types/node": "^20.11.24",
+    "@types/node": "^20.14.14",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-workspace": "workspace:*",
     "jest": "^29.7.0",
     "jest-config-workspace": "workspace:*",
     "jest-mock": "^29.7.0",
-    "rollup": "^4.12.0",
+    "rollup": "^4.20.0",
     "rollup-config-workspace": "workspace:*",
-    "typescript": "^5.3.3",
+    "typescript": "^5.5.4",
     "typescript-config-workspace": "workspace:*"
   },
   "dependencies": {
-    "@octokit/types": "^12.6.0",
+    "@octokit/types": "^13.5.0",
     "actions-utils": "workspace:*",
-    "glob": "^10.3.10",
-    "mime": "^4.0.1",
+    "glob": "^10.4.5",
+    "mime": "^4.0.4",
     "node-fetch": "^3.3.2"
   }
 }

@@ -346,6 +346,7 @@ export const restoreCargoCache = async (
   if (cacheHit && path.parse(registryPath).root !== cwdRoot) {
     info('Copying registry from temporary directory')
     const tempDir = path.normalize(path.join(process.cwd(), '..', 'setup-rust-cargo-registry'))
+    // eslint-disable-next-line n/no-unsupported-features/node-builtins
     await fs.cp(tempDir, registryPath, { recursive: true })
   }
   return cacheHit
@@ -361,6 +362,7 @@ export const saveCargoCache = async (projectDirectory: string, cargoDirectory: s
       info('Cache path is not in the current drive, copying registry to temporary directory')
       const tempDir = path.normalize(path.join(process.cwd(), '..', 'setup-rust-cargo-registry'))
       await fs.mkdir(tempDir, { recursive: true })
+      // eslint-disable-next-line n/no-unsupported-features/node-builtins
       await fs.cp(registryPath, tempDir, { recursive: true })
       directories.push(tempDir)
     } else {

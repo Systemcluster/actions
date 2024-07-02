@@ -30,7 +30,7 @@ export const main = async (push = true): Promise<ActionReleaseResults> => {
     ) as { version?: string; name?: string; displayName?: string }
     const name = packageJson.displayName ?? packageJson.name ?? dirname
     const version = (packageJson.version ?? '0.0.0').split('.')
-    const versionTag = dirname + '-v' + (version[0] ?? 0)
+    const versionTag = dirname + '-v' + `${version[0] ?? 0}`
     const result = await releaseBranchMain(
       {
         branch: dirname,

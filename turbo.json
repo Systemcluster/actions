@@ -1,6 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "ui": "stream",
+  "globalEnv": [
+    "GITHUB_*",
+    "RUNNER_*",
+    "ACTIONS_*",
+    "RUSTUP_*",
+    "CARGO_*",
+    "INPUT_*"
+  ],
+  "tasks": {
     "build": {
       "dependsOn": [
         "^build"

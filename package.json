@@ -14,7 +14,10 @@
   "license": "BSD-2-Clause",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@8.6.9",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.4.0",
   "scripts": {
     "build": "turbo run build --no-daemon",
     "check": "turbo run check --no-daemon",
@@ -25,9 +28,9 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-workspace": "workspace:*",
-    "rimraf": "^5.0.5",
-    "turbo": "^1.12.4",
-    "typescript": "^5.3.3",
+    "rimraf": "^5.0.10",
+    "turbo": "^2.0.11",
+    "typescript": "^5.5.4",
     "typescript-config-workspace": "workspace:*"
   },
   "resolutions": {

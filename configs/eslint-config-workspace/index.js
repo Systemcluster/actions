@@ -1,4 +1,4 @@
-import { base, typescript, node, jest } from '@systemcluster/eslint-config'
+import { base, jest, node, prettier, turbo, typescript } from '@systemcluster/eslint-config'
 
 /** @type import('eslint').Linter.FlatConfig[] */
-export default [base, typescript, node, jest]
+export default [base, typescript, node, jest, prettier, turbo]
