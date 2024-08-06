@@ -79,7 +79,7 @@ export interface Toolchain {
 
 export const parseToolchainFile = async (filePath: string): Promise<Partial<Toolchain>> => {
   const toolchainToml = await fs.readFile(filePath, 'utf8')
-  const toolchain = toml.parse(toolchainToml) as { toolchain: Partial<Toolchain> }
+  const toolchain = toml.parse(toolchainToml, 1, '\n') as { toolchain: Partial<Toolchain> }
   return toolchain.toolchain
 }
 
@@ -288,7 +288,7 @@ export const getCacheKey = async (
   for (const cachePath of cargoTomlPaths) {
     if (await isFile(cachePath)) {
       const cargoToml = await fs.readFile(cachePath, 'utf8')
-      const cargo = toml.parse(cargoToml) as {
+      const cargo = toml.parse(cargoToml, 1, '\n') as {
         dependencies?: Record<string, unknown>
         workspace?: { dependencies?: Record<string, unknown> }
       }
