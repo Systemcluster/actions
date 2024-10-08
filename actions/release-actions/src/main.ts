@@ -4,8 +4,8 @@ import path from 'node:path'
 import { getStringInput } from 'actions-utils/inputs'
 import { debug, summary } from 'actions-utils/outputs'
 
-import { glob } from 'glob'
-import { getCommit, main as releaseBranchMain, ReleaseResult } from 'release-branch'
+import { type ReleaseResult, getCommit, main as releaseBranchMain } from 'release-branch'
+import { glob } from 'tinyglobby'
 
 export interface ActionReleaseResult extends ReleaseResult {
   action: string
@@ -17,7 +17,7 @@ export interface ActionReleaseResults {
 export const main = async (push = true): Promise<ActionReleaseResults> => {
   const results = [] as ActionReleaseResult[]
   for (const file of await glob('./**/action.yml', {
-    nodir: true,
+    onlyFiles: true,
     ignore: ['**/node_modules/**', '**/dist/**'],
     absolute: true,
   })) {

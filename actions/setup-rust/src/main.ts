@@ -14,8 +14,8 @@ import { getBooleanInput, getStringArrayInput, getStringInput } from 'actions-ut
 import { debug, endGroup, info, startGroup, warning } from 'actions-utils/outputs'
 
 import libc from 'detect-libc'
-import { glob } from 'glob'
 import slash from 'slash'
+import { glob } from 'tinyglobby'
 
 export interface Inputs {
   channel: string
@@ -54,7 +54,7 @@ export const getInputs = (): Inputs => {
   return inputs
 }
 
-export const stringify = (value: unknown, indent: number = 0): string => {
+export const stringify = (value: unknown, indent = 0): string => {
   return JSON.stringify(
     value,
     (key, value) => {
@@ -79,7 +79,9 @@ export interface Toolchain {
 
 export const parseToolchainFile = async (filePath: string): Promise<Partial<Toolchain>> => {
   const toolchainToml = await fs.readFile(filePath, 'utf8')
-  const toolchain = toml.parse(toolchainToml, 1, '\n') as { toolchain: Partial<Toolchain> }
+  const toolchain = toml.parse(toolchainToml, 1, '\n') as {
+    toolchain: Partial<Toolchain>
+  }
   return toolchain.toolchain
 }
 
@@ -231,7 +233,7 @@ export interface RustVersion {
 }
 export const getRustVersion = async (): Promise<RustVersion> => {
   const rustcVersion = await execCommand('rustc', ['--version', '--verbose'])
-  const rustcVersionMatch = rustcVersion.match(/^rustc ([^ ]+) \(([^)]+)\)$/mu)
+  const rustcVersionMatch = /^rustc ([^ ]+) \(([^)]+)\)$/mu.exec(rustcVersion)
   if (!rustcVersionMatch || rustcVersionMatch.length !== 3) {
     throw new Error(`Unknown rustc version format: "${rustcVersion}"`)
   }
@@ -264,13 +266,14 @@ export const getCacheKey = async (
   hasher.update(toolchain.channel)
   hasher.update(version.version)
   hasher.update(version.hash)
-  const lockfilePaths = await glob('**/Cargo.lock', {
-    cwd: projectDirectory,
-    absolute: true,
-    nodir: true,
-    posix: true,
-    ignore: ['**/target/**'],
-  })
+  const lockfilePaths = (
+    await glob('**/Cargo.lock', {
+      cwd: projectDirectory,
+      absolute: true,
+      onlyFiles: true,
+      ignore: ['**/target/**'],
+    })
+  ).map((file) => slash(file))
   for (const cachePath of lockfilePaths) {
     if (await isFile(cachePath)) {
       const cargoLock = await fs.readFile(cachePath, 'utf8')
@@ -278,13 +281,14 @@ export const getCacheKey = async (
       debug(`Hashed file "${cachePath}"`)
     }
   }
-  const cargoTomlPaths = await glob('**/Cargo.toml', {
-    cwd: projectDirectory,
-    absolute: true,
-    nodir: true,
-    posix: true,
-    ignore: ['**/target/**'],
-  })
+  const cargoTomlPaths = (
+    await glob('**/Cargo.toml', {
+      cwd: projectDirectory,
+      absolute: true,
+      onlyFiles: true,
+      ignore: ['**/target/**'],
+    })
+  ).map((file) => slash(file))
   for (const cachePath of cargoTomlPaths) {
     if (await isFile(cachePath)) {
       const cargoToml = await fs.readFile(cachePath, 'utf8')
@@ -400,7 +404,9 @@ export const pruneCargoCache = async (cargoDirectory: string): Promise<void> => 
         (await fs.readdir(indexDir)).map(async (dir) => {
           if (await isDirectory(path.join(indexDir, dir, '.git'))) {
             debug(`Removing directory "${path.join(indexDir, dir, '.git')}"`)
-            await fs.rm(path.join(indexDir, dir, '.cache'), { recursive: true })
+            await fs.rm(path.join(indexDir, dir, '.cache'), {
+              recursive: true,
+            })
           }
         })
       )
@@ -423,14 +429,15 @@ export const pruneTargetDirectory = async (inputs: Inputs, projectDirectory: str
       await spawnCommand('cargo', args, { cwd: projectDirectory })
     }
     if (inputs.cacheProfile) {
-      const dirs = await glob('**/', {
-        cwd: path.join(projectDirectory, 'target'),
-        absolute: true,
-        nodir: false,
-        posix: true,
-        maxDepth: 1,
-        ignore: [`**/${inputs.cacheProfile}`],
-      })
+      const dirs = (
+        await glob('**/', {
+          cwd: path.join(projectDirectory, 'target'),
+          absolute: true,
+          onlyDirectories: true,
+          deep: 1,
+          ignore: [`**/${inputs.cacheProfile}`],
+        })
+      ).map((dir) => slash(dir))
       debug(`Removing all targets except "${inputs.cacheProfile}"`)
       await Promise.all(
         dirs.map(async (dir) => {
@@ -442,13 +449,14 @@ export const pruneTargetDirectory = async (inputs: Inputs, projectDirectory: str
       )
     }
     debug(`Removing example and incremental directories`)
-    const targets = await glob('**/', {
-      cwd: path.join(projectDirectory, 'target'),
-      absolute: true,
-      nodir: false,
-      posix: true,
-      maxDepth: 1,
-    })
+    const targets = (
+      await glob('**/', {
+        cwd: path.join(projectDirectory, 'target'),
+        absolute: true,
+        onlyDirectories: true,
+        deep: 1,
+      })
+    ).map((dir) => slash(dir))
     await Promise.all(
       targets.map(async (target) =>
         Promise.all(
@@ -462,12 +470,13 @@ export const pruneTargetDirectory = async (inputs: Inputs, projectDirectory: str
         )
       )
     )
-    const dfiles = await glob('**/*.d', {
-      cwd: path.join(projectDirectory, 'target'),
-      absolute: true,
-      nodir: true,
-      posix: true,
-    })
+    const dfiles = (
+      await glob('**/*.d', {
+        cwd: path.join(projectDirectory, 'target'),
+        absolute: true,
+        onlyFiles: true,
+      })
+    ).map((file) => slash(file))
     debug(`Removing dep-info files`)
     await Promise.all(
       dfiles.map(async (dfile) => {

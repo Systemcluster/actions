@@ -20,9 +20,9 @@ import { isDirectory, isFile } from 'actions-utils/files'
 import { getBooleanInput, getStringArrayInput, getStringInput } from 'actions-utils/inputs'
 import { debug, endGroup, info, startGroup, warning } from 'actions-utils/outputs'
 
-import { glob } from 'glob'
-import nodeVersionAlias, { SemverVersion } from 'node-version-alias'
+import nodeVersionAlias, { type SemverVersion } from 'node-version-alias'
 import slash from 'slash'
+import { glob } from 'tinyglobby'
 
 export interface Inputs {
   nodeVersion: string
@@ -72,7 +72,10 @@ export const parsePackageManager = (packageManager: string): PackageManagerInfo 
   if (!name || !['npm', 'yarn', 'pnpm'].includes(name.trim())) {
     throw new Error(`Unknown package manager "${name}"`)
   }
-  return { name: name.trim() as PackageManager, version: version?.trim() || 'latest' }
+  return {
+    name: name.trim() as PackageManager,
+    version: version?.trim() || 'latest',
+  }
 }
 
 export interface PackageJson {
@@ -339,13 +342,14 @@ export const getCacheKey = async (projectDirectory: string, cacheFiles: string[]
   const hasher = crypto.createHash('sha256')
   for (const cacheFile of cacheFiles) {
     const pattern = `**/${cacheFile}`
-    const cachePaths = await glob(pattern, {
-      cwd: projectDirectory,
-      absolute: true,
-      nodir: true,
-      posix: true,
-      ignore: ['**/node_modules/**'],
-    })
+    const cachePaths = (
+      await glob(pattern, {
+        cwd: projectDirectory,
+        absolute: true,
+        onlyFiles: true,
+        ignore: ['**/node_modules/**'],
+      })
+    ).map((file) => slash(path.relative(projectDirectory, file)))
     for (const cachePath of cachePaths) {
       if (await isFile(cachePath)) {
         if (path.basename(cachePath) === 'package.json') {
@@ -357,7 +361,11 @@ export const getCacheKey = async (projectDirectory: string, cacheFiles: string[]
           const dependencies = packageJson.dependencies ?? {}
           const devDependencies = packageJson.devDependencies ?? {}
           const peerDependencies = packageJson.peerDependencies ?? {}
-          const dependenciesJson = JSON.stringify({ dependencies, devDependencies, peerDependencies })
+          const dependenciesJson = JSON.stringify({
+            dependencies,
+            devDependencies,
+            peerDependencies,
+          })
           hasher.update(dependenciesJson)
           debug(`Hashed dependencies from "${cachePath}"`)
         } else {

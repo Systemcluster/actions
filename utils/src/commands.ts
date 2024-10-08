@@ -1,4 +1,4 @@
-import child_process, { ExecFileOptions, SpawnSyncOptions } from 'node:child_process'
+import child_process, { type ExecFileOptions, type SpawnSyncOptions } from 'node:child_process'
 import util from 'node:util'
 
 export type { ExecFileOptions, SpawnSyncOptions } from 'node:child_process'
@@ -33,7 +33,7 @@ export const spawnCommand = (
   const result = child_process.spawnSync(command, args, {
     encoding: 'utf8',
     stdio: ['ignore', 'inherit', 'inherit'],
-    timeout: 180_000,
+    timeout: 360_000,
     maxBuffer: 30_000_000,
     ...options,
   })

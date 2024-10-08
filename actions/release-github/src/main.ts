@@ -8,9 +8,9 @@ import { context, getOctokit, setOutput } from 'actions-utils/context'
 import { getBooleanInput, getStringArrayInput, getStringInput } from 'actions-utils/inputs'
 import { debug, notice, warning } from 'actions-utils/outputs'
 
-import { glob } from 'glob'
 import mime from 'mime'
 import fetch from 'node-fetch'
+import { glob } from 'tinyglobby'
 
 export type Octokit = InstanceType<GitHub>
 
@@ -74,7 +74,7 @@ export const getFiles = async (files: string[]): Promise<string[]> => {
     files.map((file) =>
       glob(file, {
         cwd: process.cwd(),
-        nodir: true,
+        onlyFiles: true,
       })
     )
   )

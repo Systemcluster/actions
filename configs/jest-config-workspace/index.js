@@ -3,7 +3,7 @@ export default {
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'ts'],
   extensionsToTreatAsEsm: ['.ts'],
-  testRegex: '.*\\.test\\.(t|j)s$',
+  testRegex: String.raw`.*\.test\.(t|j)s$`,
   transform: {
     '^.+\\.m?(t|j)s$': [
       '@swc/jest',

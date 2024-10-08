@@ -5,13 +5,13 @@ import path from 'node:path'
 import { execCommand } from 'actions-utils/commands'
 import { context, setOutput } from 'actions-utils/context'
 import { isDirectory } from 'actions-utils/files'
-import { getStringInput, getStringArrayInput, getBooleanInput } from 'actions-utils/inputs'
-import { debug, warning, notice } from 'actions-utils/outputs'
+import { getBooleanInput, getStringArrayInput, getStringInput } from 'actions-utils/inputs'
+import { debug, notice, warning } from 'actions-utils/outputs'
 
-import { glob } from 'glob'
-import git, { CommitObject } from 'isomorphic-git'
+import git, { type CommitObject } from 'isomorphic-git'
 import http from 'isomorphic-git/http/node'
 import slash from 'slash'
+import { glob } from 'tinyglobby'
 
 export interface Inputs {
   githubToken: string
@@ -56,12 +56,10 @@ export const getFiles = async (directory: string, include: string[], exclude: st
       glob(include, {
         cwd: directory,
         ignore: exclude,
-        follow: false,
-        nodir: true,
+        followSymbolicLinks: false,
+        onlyFiles: true,
         dot: true,
         absolute: false,
-        stat: true,
-        posix: true,
       })
     )
   )
@@ -189,7 +187,9 @@ export const main = async (inputsOverride?: Inputs, push = true): Promise<Releas
   const copied = (
     await Promise.allSettled(
       add.map(async (file) => {
-        await fs.mkdir(path.join(temporary, path.dirname(file)), { recursive: true })
+        await fs.mkdir(path.join(temporary, path.dirname(file)), {
+          recursive: true,
+        })
         await fs.copyFile(path.join(inputs.directory, file), path.join(temporary, file))
       })
     )
