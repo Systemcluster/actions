@@ -30,6 +30,7 @@ export interface Inputs {
   cacheSweep: boolean
   cacheKeyJob: boolean
   cacheKeyEnv: string[]
+  githubToken: string
 }
 
 export const getInputs = (): Inputs => {
@@ -46,6 +47,7 @@ export const getInputs = (): Inputs => {
     cacheSweep: getBooleanInput('cache-sweep', false),
     cacheKeyJob: getBooleanInput('cache-key-job', false),
     cacheKeyEnv: getStringArrayInput('cache-key-env', false),
+    githubToken: getStringInput('github-token', false),
   }
   inputs.components = inputs.components.flatMap((component) => component.split(/[,;]+/u).map((component) => component.trim()))
   inputs.targets = inputs.targets.flatMap((target) => target.split(/[,;]+/u).map((target) => target.trim()))
@@ -243,10 +245,25 @@ export const getRustVersion = async (): Promise<RustVersion> => {
   }
 }
 
-export const installBinaries = async (binaries: string[]): Promise<void> => {
+export const installBinaries = async (binaries: string[], githubToken: string): Promise<void> => {
   startGroup(`Installing binaries [${binaries.join(', ')}]`)
   try {
-    await spawnCommand('cargo', ['binstall', '--no-confirm', '--log-level', 'info', ...binaries])
+    await spawnCommand('cargo', [
+      'binstall',
+      '--disable-telemetry',
+      '--rate-limit',
+      '25',
+      '--github-token',
+      githubToken,
+      '--no-confirm',
+      '--no-cleanup',
+      '--no-track',
+      '--locked',
+      '--force',
+      '--log-level',
+      'info',
+      ...binaries,
+    ])
   } finally {
     endGroup()
   }
@@ -540,7 +557,7 @@ export const main = async (inputsOverride?: Inputs, install = true) => {
       await installBinstall(cargoBinDirectory)
     }
     if (install) {
-      await installBinaries(binaries)
+      await installBinaries(binaries, inputs.githubToken)
     }
   }
 

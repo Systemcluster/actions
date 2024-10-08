@@ -48,6 +48,10 @@ inputs:
   cache-key-env:
     required: false
     description: List of environment variables to consider when generating the cache key. Requires `cache` to be `true`.
+  github-token:
+    required: false
+    description: GitHub Access Token. Used for downloading binaries. Defaults to `{github.token}`.
+    default: "${{ github.token }}"
 
 outputs:
   rust-version:

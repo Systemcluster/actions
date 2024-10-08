@@ -34,7 +34,7 @@ export const spawnCommand = (
     encoding: 'utf8',
     stdio: ['ignore', 'inherit', 'inherit'],
     timeout: 360_000,
-    maxBuffer: 30_000_000,
+    maxBuffer: 120_000_000,
     ...options,
   })
   if (result.error) {
