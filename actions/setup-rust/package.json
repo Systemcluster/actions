@@ -31,15 +31,15 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.13",
-    "@types/node": "^22.7.5",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.9.3",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.1",
     "eslint-config-workspace": "workspace:*",
     "jest": "^29.7.0",
     "jest-config-workspace": "workspace:*",
     "jest-mock": "^29.7.0",
-    "rollup": "^4.24.0",
+    "rollup": "^4.27.4",
     "rollup-config-workspace": "workspace:*",
     "typescript": "5.5.4",
     "typescript-config-workspace": "workspace:*"
@@ -49,6 +49,6 @@
     "actions-utils": "workspace:*",
     "detect-libc": "^2.0.3",
     "slash": "^5.1.0",
-    "tinyglobby": "^0.2.9"
+    "tinyglobby": "^0.2.10"
   }
 }
