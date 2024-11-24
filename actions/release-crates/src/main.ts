@@ -210,6 +210,9 @@ export const sortPackages = (workspace: Workspace): string[] => {
   for (const crate of workspace.crates.values()) {
     for (const dependency of crate.dependencies.values()) {
       const dependency_crate = workspace.crates.get(dependency.name)
+      if (dependency_crate?.path === crate.path) {
+        continue
+      }
       if (dependency_crate && !dependency_crate.publish) {
         throw new Error(`"${crate.name}" depends on workspace member "${dependency.name}" which is not published`)
       }
