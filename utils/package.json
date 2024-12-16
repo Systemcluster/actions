@@ -47,19 +47,19 @@
     "check": "tsc --noEmit --emitDeclarationOnly false && eslint \"**/*.ts*\""
   },
   "devDependencies": {
-    "@types/node": "^22.9.3",
-    "eslint": "^8.57.1",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
     "eslint-config-workspace": "workspace:*",
-    "typescript": "5.5.4",
+    "typescript": "5.7.2",
     "typescript-config-workspace": "workspace:*"
   },
   "dependencies": {
-    "@actions/cache": "^3.3.0",
+    "@actions/cache": "^4.0.0",
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",
     "@actions/tool-cache": "^2.0.1",
     "@octokit/core": "^6.1.2",
-    "@octokit/plugin-paginate-rest": "^11.3.5",
+    "@octokit/plugin-paginate-rest": "^11.3.6",
     "@octokit/plugin-rest-endpoint-methods": "^13.2.6",
     "@octokit/plugin-retry": "^7.1.2",
     "@octokit/plugin-throttling": "^9.3.2"

@@ -14,6 +14,7 @@ export const execCommand = async (
       encoding: 'utf8',
       timeout: 180_000,
       maxBuffer: 30_000_000,
+      shell: true,
       ...options,
     })
     return result.stdout.trim()
@@ -21,7 +22,8 @@ export const execCommand = async (
     const error = _error as { stdout: string; stderr: string; code: number }
     const message =
       (errorMessage ? `${errorMessage}: ` : `Error running ${command}: `) +
-      (error.stderr.trim() || error.stdout.trim() || `Returned ${error.code}`)
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      (error.stderr?.trim() || error.stdout?.trim() || `Returned ${error.code}`)
     throw new Error(message)
   }
 }
@@ -35,6 +37,7 @@ export const spawnCommand = (
     stdio: ['ignore', 'inherit', 'inherit'],
     timeout: 360_000,
     maxBuffer: 120_000_000,
+    shell: true,
     ...options,
   })
   if (result.error) {

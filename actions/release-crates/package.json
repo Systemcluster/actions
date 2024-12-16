@@ -32,17 +32,17 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.9.3",
+    "@types/node": "^22.10.2",
     "@types/semver": "^7.5.8",
-    "dotenv": "^16.4.5",
-    "eslint": "^8.57.1",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.17.0",
     "eslint-config-workspace": "workspace:*",
     "jest": "^29.7.0",
     "jest-config-workspace": "workspace:*",
     "jest-mock": "^29.7.0",
-    "rollup": "^4.27.4",
+    "rollup": "^4.28.1",
     "rollup-config-workspace": "workspace:*",
-    "typescript": "5.5.4",
+    "typescript": "5.7.2",
     "typescript-config-workspace": "workspace:*"
   },
   "dependencies": {
