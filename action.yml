@@ -1,0 +1,62 @@
+name: Setup Rust
+description: Setup a Rust environment with the right toolchain and build caching.
+author: Systemcluster
+
+runs:
+  using: node20
+  main: dist/action.js
+  post: dist/action-post.js
+
+branding:
+  color: white
+  icon: box
+
+inputs:
+  channel:
+    required: false
+    description: Version of Rust to install. Can be a channel like `stable`, `beta`, `nightly`, or a specific version like `1.54.0` or `nightly-2021-08-01`. Read from the `RUSTUP_TOOLCHAIN` environment variable, `rust-toolchain` or `rust-toolchain.toml` file, and falling back to `stable`.
+  components:
+    required: false
+    description: List of components to install. Can be a list of component names like `rustfmt`, `clippy`, or `rust-src`. Read from the `rust-toolchain.toml` file.
+  targets:
+    required: false
+    description: List of targets to install. Can be a list of target names like `wasm32-unknown-unknown`, `x86_64-unknown-linux-gnu`, or `x86_64-apple-darwin`. Read from the `rust-toolchain.toml` file.
+  profile:
+    required: false
+    description: Profile to install. Can be `minimal`, `default`, or `complete`. Read from the `rust-toolchain.toml` file and falling back to `minimal`.
+  binaries:
+    required: false
+    description: List of binaries to install. Can be a list of binary names like `cargo-nextest` or specific versions like `cargo-insta@1.32.0`.
+  directory:
+    required: false
+    description: Directory containing the Rust project. Used for detecting Rust version and configuration and for caching build artifacts. Defaults to `.`.
+  sccache:
+    required: false
+    description: Whether to set up sccache with GitHub Actions integration. Defaults to `true`.
+  cache:
+    required: false
+    description: Whether to cache and restore the Cargo store and the build artifacts in the target directory. Defaults to `true`.
+  cache-profile:
+    required: false
+    description: The build profile to cache. Can be `debug`, `release`, or any custom profile. If not specified, all profiles are cached. Requires `cache` to be `true`.
+  cache-sweep:
+    required: false
+    description: Whether to run `cargo sweep` before saving the cache. Requires `cache` to be `true`.
+  cache-key-job:
+    required: false
+    description: Whether to consider the Job ID when generating the cache key. Set to `true` to prevent sharing the cache across jobs. Requires `cache` to be `true`.
+  cache-key-env:
+    required: false
+    description: List of environment variables to consider when generating the cache key. Requires `cache` to be `true`.
+  github-token:
+    required: false
+    description: GitHub Access Token. Used for downloading binaries. Defaults to `{github.token}`.
+    default: "${{ github.token }}"
+
+outputs:
+  rust-version:
+    description: Version of Rust that was installed.
+  rust-version-hash:
+    description: Commit hash of the Rust version that was installed.
+  cache-hit:
+    description: Whether the Cargo store and build artifact cache was restored.
