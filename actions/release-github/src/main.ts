@@ -467,14 +467,18 @@ export const main = async (inputsOverride?: Inputs, push = true) => {
   debug(`Target repository: ${JSON.stringify(repository, null, 0)}`)
 
   const files = await getFiles(inputs.files)
-  if (files.length === 0) {
+  if (inputs.files.length > 0 && files.length === 0) {
     warning('No files found to release')
     return
   }
   debug(`Files to release: ${JSON.stringify(files, null, 0)}`)
   const deduped = files.filter((file, index, self) => {
     const name = path.basename(file)
-    return self.findIndex((f) => path.basename(f) === name) === index
+    if (self.findIndex((f) => path.basename(f) === name) !== index) {
+      warning(`Skipped duplicate file "${name}"`)
+      return false
+    }
+    return true
   })
   if (files.length !== deduped.length) {
     warning(`Skipped ${files.length - deduped.length} files with duplicate base names`)
@@ -509,8 +513,10 @@ export const main = async (inputsOverride?: Inputs, push = true) => {
   setOutput('html-url', release.html_url)
   setOutput('upload-url', cleanUploadUrl(release.upload_url))
 
-  const assets = await uploadAssets(inputs, release, deduped)
-  debug(`Uploaded assets: ${JSON.stringify(assets, null, 0)}`)
+  if (deduped.length > 0) {
+    const assets = await uploadAssets(inputs, release, deduped)
+    debug(`Uploaded assets: ${JSON.stringify(assets, null, 0)}`)
+  }
 
   notice(`Created release ${release.name || release.id} (${release.tag_name}) with ${deduped.length} assets: ${release.html_url}`)
 }

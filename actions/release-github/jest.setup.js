@@ -11,7 +11,7 @@ process.env['GITHUB_REPOSITORY'] ||= process.env['INPUT_REPOSITORY'] || 'github/
 
 process.env['INPUT_TAG'] ||= 'snapshot'
 process.env['INPUT_NAME'] ||= 'Snapshot'
-process.env['INPUT_FILES'] ||= '**/dist/*'
+process.env['INPUT_FILES'] ||= './dist/*'
 process.env['INPUT_COMPARE-TAG'] ||= 'true'
 process.env['INPUT_COMPARE-LATEST'] ||= 'true'
 process.env['INPUT_COMPARE-FIRST'] ||= 'true'

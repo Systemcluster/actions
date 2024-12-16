@@ -38,7 +38,7 @@
 | `tag` | String | Tag of the release | `{github.ref}` | ✗ |
 | `prerelease` | Boolean | Whether the release will be marked as a prerelease. | `false` | ✗ |
 | `draft` | Boolean | Whether the release will be marked as a draft. | `false` | ✗ |
-| `files` | String | List of files or glob patterns to include in the release. | | ✓ |
+| `files` | String | List of files or glob patterns to include in the release. | | ✗ |
 | `message` | String | Message to prepend to the release notes. | | ✗ |
 | `message-file` | String | Path to a file containing a message to prepend to the release notes. | | ✗ |
 | `message-pulls` | String | Message to generate for pull requests included in the release. Supports placeholders for `{title}`, `{pull}`, `{user}` and `{author}`.' | | ✗ |

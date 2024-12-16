@@ -33,7 +33,7 @@ inputs:
     required: false
     description: Whether the release will be marked as a draft.
   files:
-    required: true
+    required: false
     description: List of files or glob patterns to include in the release.
   message:
     required: false
