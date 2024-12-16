@@ -1,0 +1,56 @@
+name: Release Branch
+description: Create or update a GitHub branch with files from a subdirectory.
+author: Systemcluster
+
+runs:
+  using: node20
+  main: dist/action.js
+
+branding:
+  color: green
+  icon: package
+
+inputs:
+  github-token:
+    required: false
+    description: GitHub Access Token. Defaults to `{github.token}`.
+    default: "${{ github.token }}"
+  repository:
+    required: false
+    description: Repository to push the release to. Defaults to `{github.repository}`.
+    default: "${{ github.repository }}"
+  branch:
+    required: false
+    description: Branch to push the release to. Will be created if it does not exist. Defaults to the default branch.
+  tag:
+    required: false
+    description: Tag to create or update for the release.
+  squash:
+    required: false
+    description: When `true`, discard all previous commits in the target branch.
+  gitignore:
+    required: false
+    description: When `true`, respect the `.gitignore` in the target branch.
+  message:
+    required: false
+    description: Commit message to use for the release. Supports placeholders for `{message}`, `{hash}` and `{shorthash}`. Defaults to `{message}\n{hash}`.
+    default: "{message}\n{hash}"
+  directory:
+    required: false
+    description: Directory to push to the target branch.
+  exclude:
+    required: false
+    description: Pattern or patterns of files to exclude.
+  include:
+    required: false
+    description: Pattern or patterns of files to include.
+  clean:
+    required: false
+    description: Pattern or patterns of files to delete from the target branch before adding changes.
+  impersonate:
+    required: false
+    description: When `true`, commit the release as the user that committed the last changes to the source branch.
+
+outputs:
+  commit:
+    description: Commit hash of the release.
