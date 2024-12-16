@@ -1,0 +1,54 @@
+{
+  "name": "release-github",
+  "displayName": "Release GitHub Action",
+  "version": "0.1.0",
+  "description": "Create or update a GitHub Release.",
+  "author": {
+    "name": "Christian Sdunek",
+    "email": "me@systemcluster.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:Systemcluster/actions",
+    "directory": "actions/release-github"
+  },
+  "license": "BSD-2-Clause",
+  "private": true,
+  "keywords": [
+    "github",
+    "actions"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "sideEffects": false,
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "check": "tsc --noEmit --emitDeclarationOnly false && eslint \"**/*.ts*\"",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.2",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.17.0",
+    "eslint-config-workspace": "workspace:*",
+    "jest": "^29.7.0",
+    "jest-config-workspace": "workspace:*",
+    "jest-mock": "^29.7.0",
+    "rollup": "^4.28.1",
+    "rollup-config-workspace": "workspace:*",
+    "typescript": "5.7.2",
+    "typescript-config-workspace": "workspace:*"
+  },
+  "dependencies": {
+    "@octokit/types": "^13.6.2",
+    "actions-utils": "workspace:*",
+    "mime": "^4.0.4",
+    "node-fetch": "^3.3.2",
+    "tinyglobby": "^0.2.10"
+  }
+}
