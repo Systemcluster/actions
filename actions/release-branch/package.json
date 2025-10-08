@@ -31,23 +31,23 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.2",
-    "dotenv": "^16.4.7",
-    "eslint": "^9.17.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.7.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9.37.0",
     "eslint-config-workspace": "workspace:*",
-    "jest": "^29.7.0",
+    "jest": "^30.2.0",
     "jest-config-workspace": "workspace:*",
-    "jest-mock": "^29.7.0",
-    "rollup": "^4.28.1",
+    "jest-mock": "^30.2.0",
+    "rollup": "^4.52.4",
     "rollup-config-workspace": "workspace:*",
-    "typescript": "5.7.2",
+    "typescript": "5.9.3",
     "typescript-config-workspace": "workspace:*"
   },
   "dependencies": {
     "actions-utils": "workspace:*",
-    "isomorphic-git": "^1.27.2",
+    "isomorphic-git": "^1.34.0",
     "slash": "^5.1.0",
-    "tinyglobby": "^0.2.10"
+    "tinyglobby": "^0.2.15"
   }
 }

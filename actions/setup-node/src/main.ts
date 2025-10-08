@@ -239,7 +239,7 @@ export const findCacheTarget = async (projectDirectory: string, packageManager: 
 }
 
 export const installNode = async (version: SemverVersion): Promise<string> => {
-  let arch = os.arch()
+  let arch = os.arch() as string
   if (arch === 'arm') {
     arch = 'armv7l'
   }
