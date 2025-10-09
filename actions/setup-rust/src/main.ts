@@ -578,7 +578,7 @@ export const main = async (inputsOverride?: Inputs, install = true) => {
   }
 
   if (inputs.sccache) {
-    exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '')
+    exportVariable('ACTIONS_RESULTS_URL', process.env.ACTIONS_RESULTS_URL || '')
     exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '')
     exportVariable('SCCACHE_PATH', slash(path.join(cargoDirectory, 'sccache')))
     exportVariable('SCCACHE_GHA_ENABLED', 'true')

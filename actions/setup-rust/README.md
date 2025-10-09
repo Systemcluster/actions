@@ -109,7 +109,7 @@ The following directories are cached:
 
 When the `sccache` input is `true`, [`sccache`](https://crates.io/crates/sccache) is installed and set up with [GitHub Actions integration](https://github.com/mozilla/sccache/blob/HEAD/docs/GHA.md) by setting the following environment variables:
 
-- `ACTIONS_CACHE_URL` is set to the cache URL provided to the action
+- `ACTIONS_RESULTS_URL` is set to the cache URL provided to the action
 - `ACTIONS_RUNTIME_TOKEN` is set to the token provided to the action
 - `SCCACHE_PATH` is set to the path to the `sccache` binary
 - `SCCACHE_GHA_ENABLED` is set to `true`
