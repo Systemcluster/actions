@@ -3,7 +3,7 @@ description: Create or update a GitHub branch with files from a subdirectory.
 author: Systemcluster
 
 runs:
-  using: node20
+  using: node24
   main: dist/action.js
 
 branding:

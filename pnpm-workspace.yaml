@@ -2,3 +2,6 @@ packages:
   - "utils"
   - "configs/*"
   - "actions/*"
+allowBuilds:
+  '@swc/core': true
+  unrs-resolver: true

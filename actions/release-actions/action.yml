@@ -3,7 +3,7 @@ description: Release multiple actions into branches.
 author: Systemcluster
 
 runs:
-  using: node20
+  using: node24
   main: dist/action.js
 
 branding:

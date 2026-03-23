@@ -3,7 +3,7 @@ description: Setup a Rust environment with the right toolchain and build caching
 author: Systemcluster
 
 runs:
-  using: node20
+  using: node24
   main: dist/action.js
   post: dist/action-post.js
 

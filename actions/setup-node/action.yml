@@ -3,7 +3,7 @@ description: Setup a Node.js environment with the right package manager and pack
 author: Systemcluster
 
 runs:
-  using: node20
+  using: node24
   main: dist/action.js
   post: dist/action-post.js
 

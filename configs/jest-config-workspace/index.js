@@ -27,4 +27,7 @@ export default {
   clearMocks: true,
   testTimeout: 30_000,
   reporters: [process.env.GITHUB_ACTION ? ['github-actions', { silent: false }] : 'default', 'summary'],
+  moduleNameMapper: {
+    '^@actions/(.*)$': '<rootDir>/../../node_modules/@actions/$1',
+  },
 }

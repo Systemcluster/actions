@@ -3,7 +3,7 @@ description: Publish a Rust package or workspace on crates.io.
 author: Systemcluster
 
 runs:
-  using: node20
+  using: node24
   main: dist/action.js
 
 branding:
